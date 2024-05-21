@@ -27,7 +27,7 @@
 </head>
 <body onclick="openFullscreen()">
     <div class="message">
-        Just click to see dust and clean your screen
+        Click to see dust and clean your screen
     </div>
 
     <script>
@@ -40,4 +40,9 @@
             } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) { // IE/Edge
-            
+                elem.msRequestFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
