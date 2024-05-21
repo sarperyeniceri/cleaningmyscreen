@@ -24,6 +24,15 @@
             text-align: center;
         }
     </style>
+    <!-- Google Analytics Izleme Kodu -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D7XZ8BZGXF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-D7XZ8BZGXF');
+    </script>
 </head>
 <body onclick="toggleFullscreen()">
     <div class="message">
@@ -46,40 +55,4 @@
                 } else if (elem.mozRequestFullScreen) { // Firefox
                     elem.mozRequestFullScreen();
                 } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                } else if (elem.msRequestFullscreen) { // IE/Edge
-                    elem.msRequestFullscreen();
-                } else {
-                    console.log("Fullscreen API not supported");
-                }
-            } else {
-                console.log("Exiting fullscreen mode");
-                if (document.exitFullscreen) {
-                    document.exitFullscreen().catch(err => {
-                        console.error(`Error attempting to disable full-screen mode: ${err.message} (${err.name})`);
-                    });
-                } else if (document.mozCancelFullScreen) { // Firefox
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
-                    document.msExitFullscreen();
-                } else {
-                    console.log("Fullscreen exit API not supported");
-                }
-            }
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' || event.key === 'Esc') {
-                console.log("Escape key pressed");
-                if (document.fullscreenElement) {
-                    document.exitFullscreen().catch(err => {
-                        console.error(`Error attempting to disable full-screen mode: ${err.message} (${err.name})`);
-                    });
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+                    elem.webkitRe
