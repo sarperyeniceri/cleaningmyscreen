@@ -42,9 +42,11 @@
                 } else if (elem.mozRequestFullScreen) { // Firefox
                     elem.mozRequestFullScreen();
                 } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    elem.webkitRequestFullscreen();
+                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
                 } else if (elem.msRequestFullscreen) { // IE/Edge
                     elem.msRequestFullscreen();
+                } else if (elem.webkitEnterFullscreen) { // iOS Safari
+                    elem.webkitEnterFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
@@ -53,11 +55,3 @@
                     document.mozCancelFullScreen();
                 } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
-                    document.msExitFullscreen();
-                }
-            }
-        }
-    </script>
-</body>
-</html>
