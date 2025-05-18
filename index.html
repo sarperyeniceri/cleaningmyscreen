@@ -5,23 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black Screen</title>
     <style>
-        body {
-            background-color: black;
+        html, body {
+            background: #000;
             margin: 0;
+            padding: 0;
+            width: 100vw;
             height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            min-height: 100vh;
+            width: 100vw;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            box-sizing: border-box;
             flex-direction: column;
-            cursor: pointer;
+            align-items: center;
+            justify-content: center;
         }
         .message {
             color: white;
             font-size: 12px;
             font-weight: lighter;
             text-align: center;
+            z-index: 2;
+            user-select: none;
+            cursor: pointer;
         }
         .footer-bar {
             position: fixed;
@@ -52,4 +59,121 @@
             font-size: 11px;
             gap: 4px;
             cursor: pointer;
-            padding:
+            padding: 3px 8px;
+            border-radius: 8px;
+            transition: background 0.15s;
+            text-decoration: none;
+        }
+        .footer-btn:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .footer-btn svg {
+            height: 15px;
+            width: 15px;
+            vertical-align: middle;
+            margin-right: 3px;
+            fill: currentColor;
+        }
+        @media (max-width: 500px) {
+            .footer-bar-content {
+                gap: 7px;
+            }
+            .footer-btn {
+                font-size: 10px;
+                padding: 2px 5px;
+            }
+            .footer-bar {
+                font-size: 10px;
+                padding: 5px 0 2px 0;
+            }
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D7XZ8BZGXF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D7XZ8BZGXF');
+    </script>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <div class="message" id="centerMessage">
+            Click to see dust and clean your screen
+        </div>
+    </div>
+    <div class="footer-bar">
+        <div class="footer-bar-content">
+            <a href="#" class="footer-btn" id="bookmarkBtn" title="Add to bookmarks">
+                <svg viewBox="0 0 24 24"><path d="M6 4a2 2 0 0 0-2 2v16l8-5.333L20 22V6a2 2 0 0 0-2-2H6z"/></svg>
+                Bookmark
+            </a>
+            <a href="#" class="footer-btn" target="_blank" title="Buy Me a Coffee">
+                <svg viewBox="0 0 24 24"><path d="M18 6a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v8a7 7 0 0 0 14 0V9a3 3 0 0 0-2-2.83zM5 15a5 5 0 0 0 10 0H5z"/></svg>
+                BuyMeACoffee
+            </a>
+        </div>
+    </div>
+    <script>
+        function toggleFullscreen() {
+            const elem = document.documentElement;
+            if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen().catch(() => {});
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Hem ortadaki yazıya, hem de siyah boşluğa tıklayınca tam ekran için:
+        document.getElementById('mainContainer').addEventListener('click', toggleFullscreen);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+        });
+
+        // Bookmark butonu fonksiyonu
+        document.getElementById('bookmarkBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = window.location.href;
+            const title = document.title || 'Cleaning My Screen';
+            try {
+                if (window.sidebar && window.sidebar.addPanel) {
+                    window.sidebar.addPanel(title, url, '');
+                } else if (window.external && ('AddFavorite' in window.external)) {
+                    window.external.AddFavorite(url, title);
+                } else if (window.opera && window.print) {
+                    this.setAttribute('href', url);
+                    this.setAttribute('title', title);
+                    this.setAttribute('rel', 'sidebar');
+                } else {
+                    alert('Sayfayı yer imlerine eklemek için Ctrl+D (veya Cmd+D) tuşlarına basabilirsin.');
+                }
+            } catch (ex) {
+                alert('Sayfayı yer imlerine eklemek için Ctrl+D (veya Cmd+D) tuşlarına basabilirsin.');
+            }
+        });
+    </script>
+</body>
+</html>
